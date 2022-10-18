@@ -111,6 +111,7 @@ class _AddProfileState extends State<AddProfile> {
                     database
                         .child("User/${userinfo.username}/")
                         .update({"Profile": url});
+                    userinfo.username = "";
                     await Navigator.pushNamed(context, MyRoultes.login_roultr);
                   },
                   child: Container(

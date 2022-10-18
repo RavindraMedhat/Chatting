@@ -17,9 +17,7 @@ class _SingUpPageState extends State<SingUpPage> {
   final _formKey = GlobalKey<FormState>();
 
   moveToHome(BuildContext context) async {
-
     if (_formKey.currentState!.validate()) {
-     
       setState(() {
         changebutton = true;
       });
