@@ -18,11 +18,14 @@ class ChangProfile extends StatefulWidget {
 
 class _ChangProfileState extends State<ChangProfile> {
   String downloadURL = "";
+  String tempprofile = userinfo.userProfile;
   bool uplodeProfile = false;
+  bool deleteProfile = false;
 
   uplodeImage() async {
     final storage = FirebaseStorage.instance;
     final picker = ImagePicker();
+    var database = FirebaseDatabase.instance.reference();
 
     PickedFile? image;
 
@@ -42,11 +45,20 @@ class _ChangProfileState extends State<ChangProfile> {
             .putFile(file);
 
         downloadURL = await snapshot.ref.getDownloadURL();
-        userinfo.userProfile = downloadURL;
+        tempprofile = downloadURL;
         uplodeProfile = true;
         setState(() {});
       }
     } else {}
+  }
+
+  deleteImage() async {
+    tempprofile =
+        "https://firebasestorage.googleapis.com/v0/b/first-network-e3fc6.appspot.com/o/Profile%2Fblank-profile.png?alt=media&token=e5bb7c34-f2c7-4b8d-a226-62c357d9ad55";
+    uplodeProfile = true;
+    deleteProfile = true;
+    // print("delete");
+    setState(() {});
   }
 
   @override
@@ -62,44 +74,69 @@ class _ChangProfileState extends State<ChangProfile> {
               InkWell(
                 onTap: () async {
                   ImageInChat.sender = userinfo.username;
-                  ImageInChat.src = userinfo.userProfile;
+                  ImageInChat.src = tempprofile;
                   await Navigator.pushNamed(
                       context, MyRoultes.imageViewer_roultr);
                 },
                 child: downloadURL == ""
                     ? Image.network(
-                        userinfo.userProfile,
-                        height: 50,
-                        width: 50,
+                        tempprofile,
+                        height: 75,
+                        width: 75,
                       )
                     : Image.network(
                         downloadURL,
-                        height: 50,
-                        width: 50,
+                        height: 75,
+                        width: 75,
                       ),
               ),
               50.widthBox,
-              TextButton(
-                  onPressed: uplodeImage,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(25),
-                          bottomRight: Radius.circular(25),
-                          topLeft: Radius.circular(25),
-                          bottomLeft: Radius.circular(25)),
-                      color: Color.fromARGB(255, 154, 197, 230),
-                    ),
-                    // width: MediaQuery.of(context).size.width / 2,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Change Profile",
-                            style: TextStyle(fontSize: 20),
-                          ).px12().py12(),
-                        ]),
-                  ))
+              Column(
+                children: [
+                  TextButton(
+                      onPressed: uplodeImage,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(25),
+                              bottomRight: Radius.circular(25),
+                              topLeft: Radius.circular(25),
+                              bottomLeft: Radius.circular(25)),
+                          color: Color.fromARGB(255, 154, 197, 230),
+                        ),
+                        // width: MediaQuery.of(context).size.width / 2,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Change Profile",
+                                style: TextStyle(fontSize: 20),
+                              ).px12().py12(),
+                            ]),
+                      )),
+                  TextButton(
+                      onPressed: deleteImage,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(25),
+                              bottomRight: Radius.circular(25),
+                              topLeft: Radius.circular(25),
+                              bottomLeft: Radius.circular(25)),
+                          color: Color.fromARGB(255, 154, 197, 230),
+                        ),
+                        // width: MediaQuery.of(context).size.width / 2,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Delete Profile",
+                                style: TextStyle(fontSize: 20),
+                              ).px12().py12(),
+                            ]),
+                      ))
+                ],
+              )
             ],
           ),
           50.heightBox,
@@ -107,16 +144,23 @@ class _ChangProfileState extends State<ChangProfile> {
               ? TextButton(
                   onPressed: () async {
                     var database = FirebaseDatabase.instance.reference();
+                    if (deleteProfile) {
+                      database.child("User/${userinfo.username}/").update({
+                        "Profile":
+                            "https://firebasestorage.googleapis.com/v0/b/first-network-e3fc6.appspot.com/o/Profile%2Fblank-profile.png?alt=media&token=e5bb7c34-f2c7-4b8d-a226-62c357d9ad55"
+                      });
+                    } else {
+                      final ref = FirebaseStorage.instance
+                          .ref()
+                          .child('Profile/${userinfo.username}ProfilePic');
 
-                    final ref = FirebaseStorage.instance
-                        .ref()
-                        .child('Profile/${userinfo.username}ProfilePic');
+                      var url = await ref.getDownloadURL();
 
-                    var url = await ref.getDownloadURL();
+                      database
+                          .child("User/${userinfo.username}/")
+                          .update({"Profile": url});
+                    }
 
-                    database
-                        .child("User/${userinfo.username}/")
-                        .update({"Profile": url});
                     await Navigator.pushNamed(context, MyRoultes.home_roultr);
                   },
                   child: Container(

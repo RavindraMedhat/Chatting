@@ -92,57 +92,61 @@ class _AddProfileState extends State<AddProfile> {
               downloadURL == ""
                   ? Image.asset(
                       'assets/images/blank-profile.png',
-                      height: 50,
-                      width: 50,
+                      height: 75,
+                      width: 75,
                     )
                   : Image.network(
                       downloadURL,
-                      height: 50,
-                      width: 50,
+                      height: 75,
+                      width: 75,
                     ),
               50.widthBox,
-              TextButton(
-                  onPressed: uplodeImage,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(25),
-                          bottomRight: Radius.circular(25),
-                          topLeft: Radius.circular(25),
-                          bottomLeft: Radius.circular(25)),
-                      color: Color.fromARGB(255, 154, 197, 230),
-                    ),
-                    // width: MediaQuery.of(context).size.width / 2,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Uplode Profile",
-                            style: TextStyle(fontSize: 20),
-                          ).px12().py12(),
-                        ]),
-                  )),
-              TextButton(
-                  onPressed: skip,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(25),
-                          bottomRight: Radius.circular(25),
-                          topLeft: Radius.circular(25),
-                          bottomLeft: Radius.circular(25)),
-                      color: Color.fromARGB(255, 154, 197, 230),
-                    ),
-                    // width: MediaQuery.of(context).size.width / 2,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "skip",
-                            style: TextStyle(fontSize: 20),
-                          ).px12().py12(),
-                        ]),
-                  ))
+              Column(
+                children: [
+                  TextButton(
+                      onPressed: uplodeImage,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(25),
+                              bottomRight: Radius.circular(25),
+                              topLeft: Radius.circular(25),
+                              bottomLeft: Radius.circular(25)),
+                          color: Color.fromARGB(255, 154, 197, 230),
+                        ),
+                        // width: MediaQuery.of(context).size.width / 2,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Uplode Profile",
+                                style: TextStyle(fontSize: 20),
+                              ).px12().py12(),
+                            ]),
+                      )),
+                  TextButton(
+                      onPressed: skip,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(25),
+                              bottomRight: Radius.circular(25),
+                              topLeft: Radius.circular(25),
+                              bottomLeft: Radius.circular(25)),
+                          color: Color.fromARGB(255, 154, 197, 230),
+                        ),
+                        // width: MediaQuery.of(context).size.width / 2,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "skip for now",
+                                style: TextStyle(fontSize: 20),
+                              ).px12().py12(),
+                            ]),
+                      )),
+                ],
+              )
             ],
           ),
           50.heightBox,
