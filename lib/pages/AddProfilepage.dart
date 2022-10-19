@@ -9,6 +9,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:path_provider/path_provider.dart';
+
 class AddProfile extends StatefulWidget {
   const AddProfile({Key? key}) : super(key: key);
 
@@ -19,6 +22,16 @@ class AddProfile extends StatefulWidget {
 class _AddProfileState extends State<AddProfile> {
   String downloadURL = "";
   bool uplodeProfile = false;
+
+  Future<File> getImageFileFromAssets(String path) async {
+    final byteData = await rootBundle.load('assets/$path');
+
+    final file = File('${(await getTemporaryDirectory()).path}/$path');
+    await file.writeAsBytes(byteData.buffer
+        .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+
+    return file;
+  }
 
   uplodeImage() async {
     final storage = FirebaseStorage.instance;
@@ -46,6 +59,24 @@ class _AddProfileState extends State<AddProfile> {
         setState(() {});
       }
     } else {}
+  }
+
+  skip() async {
+    uplodeProfile = true;
+
+    var database = FirebaseDatabase.instance.reference();
+    database.child("User/").update({
+      userinfo.username: {"Password": userinfo.password}
+    });
+    database.child("User/${userinfo.username}/").update({
+      "Profile":
+          "https://firebasestorage.googleapis.com/v0/b/first-network-e3fc6.appspot.com/o/Profile%2Fblank-profile.png?alt=media&token=e5bb7c34-f2c7-4b8d-a226-62c357d9ad55"
+    });
+    await Future.delayed(const Duration(seconds: 1));
+
+    userinfo.username = "";
+    await Navigator.pushNamed(context, MyRoultes.login_roultr);
+    setState(() {});
   }
 
   @override
@@ -87,6 +118,27 @@ class _AddProfileState extends State<AddProfile> {
                         children: [
                           Text(
                             "Uplode Profile",
+                            style: TextStyle(fontSize: 20),
+                          ).px12().py12(),
+                        ]),
+                  )),
+              TextButton(
+                  onPressed: skip,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(25),
+                          bottomRight: Radius.circular(25),
+                          topLeft: Radius.circular(25),
+                          bottomLeft: Radius.circular(25)),
+                      color: Color.fromARGB(255, 154, 197, 230),
+                    ),
+                    // width: MediaQuery.of(context).size.width / 2,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "skip",
                             style: TextStyle(fontSize: 20),
                           ).px12().py12(),
                         ]),
