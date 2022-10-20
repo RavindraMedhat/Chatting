@@ -45,3 +45,34 @@ class Message {
     return '$Sender send message :- $Content at $Time on $Date';
   }
 }
+
+class Notification {
+  String ID;
+  String Time;
+  String Date;
+  String Sender;
+  String ContentType;
+  String Content;
+
+  Notification(
+      {required this.ID,
+      required this.Time,
+      required this.Date,
+      required this.Sender,
+      required this.ContentType,
+      required this.Content});
+
+  factory Notification.formOBJ(data) {
+    return Notification(
+        ID: data["ID"],
+        Time: data["Time"],
+        Date: data["Date"],
+        Sender: data["Sender"],
+        ContentType: data["ContentType"],
+        Content: data["Content"]);
+  }
+
+  String factoryDes() {
+    return '$Sender send message :- $Content at $Time on $Date';
+  }
+}

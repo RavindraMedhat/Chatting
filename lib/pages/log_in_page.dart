@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_network_1/data_store.dart';
 import 'package:flutter_application_network_1/pages/chat_part/message.dart';
 import 'package:flutter_application_network_1/utils/roultes.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -21,16 +22,20 @@ class _LoginPageState extends State<LoginPage> {
   static String pass = "";
   final TextEditingController loginform_password = TextEditingController();
   final TextEditingController loginform_username = TextEditingController();
+
   moveToHome(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       setState(() {
         changebutton = true;
       });
-      await Future.delayed(const Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1)); //seconds 1
       // ignore: use_build_context_synchronously
+      print("first object");
+
+      setLogin(userinfo.username, userinfo.userProfile);
 
       await Navigator.pushNamed(context, MyRoultes.home_roultr);
-
+      print("object");
       userinfo.chatgrouplist = [];
       userinfo.chatgroup = "";
       userinfo.username = "";
@@ -78,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: const InputDecoration(
                           hintText: "Enter User Name", labelText: "User Name"),
                       validator: (value) {
-                        print(pass);
+                        print("paswor :- $pass");
                         sleep(const Duration(seconds: 1));
                         if (value!.isEmpty) {
                           return "Usrename can not be empty";
