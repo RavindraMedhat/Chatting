@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_application_network_1/data_store.dart';
-import 'package:flutter_application_network_1/pages/chat_part/message.dart';
+import 'package:flutter_application_network_1/utils/message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_network_1/utils/roultes.dart';
 import 'package:image_picker/image_picker.dart';
@@ -73,24 +73,36 @@ class _ChangProfileState extends State<ChangProfile> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               InkWell(
-                onTap: () async {
-                  ImageInChat.sender = userinfo.username;
-                  ImageInChat.src = tempprofile;
-                  await Navigator.pushNamed(
-                      context, MyRoultes.imageViewer_roultr);
-                },
-                child: downloadURL == ""
-                    ? Image.network(
-                        tempprofile,
-                        height: 75,
-                        width: 75,
-                      )
-                    : Image.network(
-                        downloadURL,
-                        height: 75,
-                        width: 75,
-                      ),
-              ),
+                  onTap: () async {
+                    ImageInChat.sender = userinfo.username;
+                    ImageInChat.src = tempprofile;
+                    await Navigator.pushNamed(
+                        context, MyRoultes.imageViewer_roultr);
+                  },
+                  child: downloadURL == ""
+                      ?
+                      Image.network(
+                          tempprofile,
+                          height: 75,
+                          width: 75,
+                        )
+                      // Image.asset(
+                      //     'assets/images/blank-profile.png',
+                      //     height: 75,
+                      //     width: 75,
+                      //   )
+                      :
+                      Image.network(
+                          downloadURL,
+                          height: 75,
+                          width: 75,
+                        ),
+                      // Image.asset(
+                      //     'assets/images/blank-profile.png',
+                      //     height: 75,
+                      //     width: 75,
+                      //   )
+                        ),
               50.widthBox,
               Column(
                 children: [
@@ -186,8 +198,19 @@ class _ChangProfileState extends State<ChangProfile> {
               : TextButton(
                   onPressed: () async {
                     setLogout();
-
+                    userinfo.chatgrouplist = [];
+                    userinfo.chatgroup = "";
+                    userinfo.username = "";
+                    userinfo.password = "";
                     await Navigator.pushNamed(context, MyRoultes.login_roultr);
+                    pageHistory.lastPage = MyRoultes.login_roultr;
+                    await Navigator.pushNamed(
+                        context, MyRoultes.AlertDialogBack_roult);
+                    // closeApp(context);
+                    await Future.delayed(
+                        const Duration(seconds: 5000)); //seconds 1
+
+                    exit(0);
                   },
                   child: Container(
                     decoration: const BoxDecoration(
@@ -203,7 +226,7 @@ class _ChangProfileState extends State<ChangProfile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "Log Oute",
+                            "LogOut",
                             style: TextStyle(fontSize: 20),
                           ).px12().py12(),
                         ]),

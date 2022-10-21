@@ -6,6 +6,5 @@ class MyRoultes {
   static String home_roultr = "/home";
   static String chat_roultr = "/chat";
   static String imageViewer_roultr = "/imageViewer";
-  static String Write = "/Write";
-  static String Read = "/Read";
+  static String AlertDialogBack_roult = "/MyAlertDialog";
 }

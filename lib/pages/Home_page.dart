@@ -1,7 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_network_1/pages/chat_part/message.dart';
+import 'package:flutter_application_network_1/utils/message.dart';
 import 'package:flutter_application_network_1/utils/roultes.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -12,11 +12,38 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // userinfo.username = "Ravindrasinh";
+
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               backgroundColor: context.theme.primaryColor,
-              title: userinfo.username.text.make(),
+              title: Row(
+                children: [
+                  InkWell(
+                    onTap: () async {
+                      ImageInChat.sender = userinfo.username;
+                      ImageInChat.src = userinfo.userProfile;
+                      await Navigator.pushNamed(
+                          context, MyRoultes.imageViewer_roultr);
+                    },
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            // image: AssetImage(
+                            //     'assets/images/blank-profile.png'),
+                            image: NetworkImage(userinfo.userProfile),
+                            fit: BoxFit.fill),
+                      ),
+                    ).p(40),
+                  ),
+                  userinfo.username.text.make(),
+                ],
+              ),
               actions: [
                 IconButton(
                     tooltip: "Change Profile",
@@ -53,97 +80,109 @@ class Home extends StatelessWidget {
                           userProfileList.add("");
                         } else {
                           userProfileList.add(value["Profile"]);
+                          // userProfileList.add(""); //remove after
                         }
                       });
 
                       // userList.sort((a, b) => a.compareTo(b));
 
                       for (var i = 0; i < userList.length; i++) {
-                        final nextuser = userList[i];
+                        if (userList[i] != userinfo.username) {
+                          final nextuser = userList[i];
 
-                        // var ref = FirebaseStorage.instance
-                        //     .ref()
-                        //     .child('Profile/${nextuser[i]}ProfilrPic');
-                        // var url =  ref.getDownloadURL();
+                          // var ref = FirebaseStorage.instance
+                          //     .ref()
+                          //     .child('Profile/${nextuser[i]}ProfilrPic');
+                          // var url =  ref.getDownloadURL();
 
-                        final userTitle = Container(
-                            child: TextButton(
-                                onPressed: () async {
-                                  userinfo.chatwith = userList[i];
-                                  userinfo.chatwithProfile = userProfileList[i];
-                                  userinfo.chatgrouplist.add(userinfo.username);
-                                  userinfo.chatgrouplist.add(userinfo.chatwith);
-                                  userinfo.chatgrouplist.sort(
-                                    (a, b) =>
-                                        a.toString().compareTo(b.toString()),
-                                  );
-                                  userinfo.chatgroup =
-                                      userinfo.chatgrouplist[0] +
-                                          userinfo.chatgrouplist[1];
+                          final userTitle = Container(
+                              child: TextButton(
+                                  onPressed: () async {
+                                    userinfo.chatwith = userList[i];
+                                    userinfo.chatwithProfile =
+                                        userProfileList[i];
+                                    userinfo.chatgrouplist
+                                        .add(userinfo.username);
+                                    userinfo.chatgrouplist
+                                        .add(userinfo.chatwith);
+                                    userinfo.chatgrouplist.sort(
+                                      (a, b) =>
+                                          a.toString().compareTo(b.toString()),
+                                    );
+                                    userinfo.chatgroup =
+                                        userinfo.chatgrouplist[0] +
+                                            userinfo.chatgrouplist[1];
 
-                                  await Navigator.pushNamed(
-                                      context, MyRoultes.chat_roultr);
+                                    await Navigator.pushNamed(
+                                        context, MyRoultes.chat_roultr);
 
-                                  userinfo.chatgrouplist = [];
-                                  userinfo.chatgroup = "";
-                                  userinfo.chatwith = "";
-                                },
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(25),
-                                        bottomRight: Radius.circular(25),
-                                        topLeft: Radius.circular(25),
-                                        bottomLeft: Radius.circular(25)),
-                                    color: Color.fromARGB(255, 154, 197, 230),
-                                  ),
-                                  width: MediaQuery.of(context).size.width / 2,
-                                  child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        20.widthBox,
-                                        userProfileList[i] == ""
-                                            ? Container(
-                                                width: 50,
-                                                height: 50,
-                                                decoration: const BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  image: DecorationImage(
-                                                      image: AssetImage(
-                                                          'assets/images/blank-profile.png'),
-                                                      fit: BoxFit.fill),
-                                                ),
-                                              ).p(2)
-                                            : InkWell(
-                                                onTap: () async {
-                                                  ImageInChat.sender = nextuser;
-                                                  ImageInChat.src =
-                                                      userProfileList[i];
-                                                  await Navigator.pushNamed(
-                                                      context,
-                                                      MyRoultes
-                                                          .imageViewer_roultr);
-                                                },
-                                                child: Container(
+                                    userinfo.chatgrouplist = [];
+                                    userinfo.chatgroup = "";
+                                    userinfo.chatwith = "";
+                                  },
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(25),
+                                          bottomRight: Radius.circular(25),
+                                          topLeft: Radius.circular(25),
+                                          bottomLeft: Radius.circular(25)),
+                                      color: Color.fromARGB(255, 154, 197, 230),
+                                    ),
+                                    width:
+                                        MediaQuery.of(context).size.width / 2,
+                                    child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          20.widthBox,
+                                          userProfileList[i] == ""
+                                              ? Container(
                                                   width: 50,
                                                   height: 50,
-                                                  decoration: BoxDecoration(
+                                                  decoration:
+                                                      const BoxDecoration(
                                                     shape: BoxShape.circle,
                                                     image: DecorationImage(
-                                                        image: NetworkImage(
-                                                            userProfileList[i]),
+                                                        image: AssetImage(
+                                                            'assets/images/blank-profile.png'),
                                                         fit: BoxFit.fill),
                                                   ),
-                                                ).p(2),
-                                              ),
-                                        Text(
-                                          nextuser,
-                                          style: TextStyle(fontSize: 30),
-                                        ).p12(),
-                                      ]),
-                                ).wFull(context).px16()));
-                        tilesList.add(userTitle);
+                                                ).p(2)
+                                              : InkWell(
+                                                  onTap: () async {
+                                                    ImageInChat.sender =
+                                                        nextuser;
+                                                    ImageInChat.src =
+                                                        userProfileList[i];
+                                                    await Navigator.pushNamed(
+                                                        context,
+                                                        MyRoultes
+                                                            .imageViewer_roultr);
+                                                  },
+                                                  child: Container(
+                                                    width: 50,
+                                                    height: 50,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      image: DecorationImage(
+                                                          // image: AssetImage(
+                                                          //     'assets/images/blank-profile.png'),
+                                                          image: NetworkImage(
+                                                              userProfileList[
+                                                                  i]),
+                                                          fit: BoxFit.fill),
+                                                    ),
+                                                  ).px12(),
+                                                ),
+                                          Text(
+                                            nextuser,
+                                            style: TextStyle(fontSize: 30),
+                                          ).px32(),
+                                        ]),
+                                  ).wFull(context).px16()));
+                          tilesList.add(userTitle);
+                        }
                       }
                     }
                     return Column(

@@ -3,11 +3,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_network_1/data_store.dart';
 import 'package:flutter_application_network_1/pages/AddProfilepage.dart';
+import 'package:flutter_application_network_1/pages/AlertDialog_back.dart';
 import 'package:flutter_application_network_1/pages/Chat_page.dart';
 import 'package:flutter_application_network_1/pages/Home_page.dart';
 import 'package:flutter_application_network_1/pages/changProfile.dart';
 import 'package:flutter_application_network_1/pages/chat_part/ImageViewer.dart';
-import 'package:flutter_application_network_1/pages/chat_part/message.dart';
+import 'package:flutter_application_network_1/utils/message.dart';
 import 'package:flutter_application_network_1/pages/log_in_page.dart';
 import 'package:flutter_application_network_1/pages/singUp_page.dart';
 import 'package:flutter_application_network_1/utils/roultes.dart';
@@ -19,7 +20,7 @@ Future<void> main(List<String> args) async {
 
   await Firebase.initializeApp();
   checkLogin();
-  await Future.delayed(const Duration(seconds: 3)); //seconds 1
+  // await Future.delayed(const Duration(seconds: 3)); //seconds 1
 
   runApp(MyApp());
 }
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("username :- ${userinfo.username}");
+    // print("username :- ${userinfo.username}");
     String IR = "";
 
     if (userinfo.username != "") {
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
         MyRoultes.imageViewer_roultr: (context) => const ImageViewer(),
         MyRoultes.login_roultr: (context) => const LoginPage(),
         MyRoultes.singUp_roultr: (context) => const SingUpPage(),
+        MyRoultes.AlertDialogBack_roult: (context) => const MyAlertDialog(),
       },
     );
   }

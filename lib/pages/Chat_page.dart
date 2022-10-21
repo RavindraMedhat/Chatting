@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_network_1/pages/chat_part/ChatMessage.dart';
 import 'package:flutter_application_network_1/pages/chat_part/send.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:flutter_application_network_1/pages/chat_part/message.dart';
+import 'package:flutter_application_network_1/utils/message.dart';
 
 import '../utils/roultes.dart';
 

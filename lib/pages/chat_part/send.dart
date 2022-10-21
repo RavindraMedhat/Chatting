@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_network_1/pages/chat_part/message.dart';
+import 'package:flutter_application_network_1/utils/message.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:intl/intl.dart';

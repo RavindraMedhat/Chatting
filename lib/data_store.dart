@@ -1,4 +1,4 @@
-import 'package:flutter_application_network_1/pages/chat_part/message.dart';
+import 'package:flutter_application_network_1/utils/message.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> checkLogin() async {

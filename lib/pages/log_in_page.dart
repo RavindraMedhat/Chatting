@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_network_1/data_store.dart';
-import 'package:flutter_application_network_1/pages/chat_part/message.dart';
+import 'package:flutter_application_network_1/utils/message.dart';
 import 'package:flutter_application_network_1/utils/roultes.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -30,18 +30,22 @@ class _LoginPageState extends State<LoginPage> {
       });
       await Future.delayed(const Duration(seconds: 1)); //seconds 1
       // ignore: use_build_context_synchronously
-      print("first object");
+      // print("first object");
 
       setLogin(userinfo.username, userinfo.userProfile);
 
       await Navigator.pushNamed(context, MyRoultes.home_roultr);
-      print("object");
+      // closeApp(context);
+      pageHistory.lastPage = MyRoultes.home_roultr;
+      await Navigator.pushNamed(context, MyRoultes.AlertDialogBack_roult);
+
       userinfo.chatgrouplist = [];
       userinfo.chatgroup = "";
       userinfo.username = "";
       userinfo.password = "";
 
       setState(() {
+        userinfo.username = "";
         changebutton = false;
         loginform_password.clear();
         loginform_username.clear();

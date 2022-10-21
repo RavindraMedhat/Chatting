@@ -1,4 +1,43 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_application_network_1/utils/roultes.dart';
+import 'package:flutter_application_network_1/utils/themes.dart';
+import 'package:get/get.dart';
+
+// Future<void> closeApp(BuildContext context) async {}
+closeApp(BuildContext context) {
+  showDialog(
+    barrierDismissible: false,
+    // barrierColor: Color.fromARGB(1, 1, 1, 1),
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Confirm exit"),
+        content: Text("Do you want to quit the Chatting ?"),
+        actions: [
+          TextButton(
+            child: Text("No"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          TextButton(
+            child: Text("Yes"),
+            onPressed: () {
+              exit(0);
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+class pageHistory {
+  static String lastPage = "";
+}
 
 class ImageInChat {
   static String src = "";
