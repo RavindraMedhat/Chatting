@@ -10,7 +10,7 @@ import 'package:flutter_application_network_1/pages/changProfile.dart';
 import 'package:flutter_application_network_1/pages/chat_part/ImageViewer.dart';
 import 'package:flutter_application_network_1/utils/message.dart';
 import 'package:flutter_application_network_1/pages/log_in_page.dart';
-import 'package:flutter_application_network_1/pages/singUp_page.dart';
+import 'package:flutter_application_network_1/pages/signUp_page.dart';
 import 'package:flutter_application_network_1/utils/roultes.dart';
 import 'package:flutter_application_network_1/utils/themes.dart';
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';

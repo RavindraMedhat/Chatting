@@ -73,9 +73,12 @@ class _AddProfileState extends State<AddProfile> {
           "https://firebasestorage.googleapis.com/v0/b/first-network-e3fc6.appspot.com/o/Profile%2Fblank-profile.png?alt=media&token=e5bb7c34-f2c7-4b8d-a226-62c357d9ad55"
     });
     await Future.delayed(const Duration(seconds: 1));
+    userinfo.userProfile =
+        "https://firebasestorage.googleapis.com/v0/b/first-network-e3fc6.appspot.com/o/Profile%2Fblank-profile.png?alt=media&token=e5bb7c34-f2c7-4b8d-a226-62c357d9ad55";
+
+    await Navigator.pushNamed(context, MyRoultes.home_roultr);
 
     userinfo.username = "";
-    await Navigator.pushNamed(context, MyRoultes.login_roultr);
     setState(() {});
   }
 
@@ -167,8 +170,10 @@ class _AddProfileState extends State<AddProfile> {
                     database
                         .child("User/${userinfo.username}/")
                         .update({"Profile": url});
+                    userinfo.userProfile = url;
+                    await Navigator.pushNamed(context, MyRoultes.home_roultr);
+
                     userinfo.username = "";
-                    await Navigator.pushNamed(context, MyRoultes.login_roultr);
                   },
                   child: Container(
                     decoration: const BoxDecoration(

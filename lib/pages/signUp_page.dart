@@ -47,7 +47,7 @@ class _SingUpPageState extends State<SingUpPage> {
                 height: 20,
               ),
               const Text(
-                "Sing Up",
+                "Sign Up",
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
@@ -119,7 +119,7 @@ class _SingUpPageState extends State<SingUpPage> {
                             color: Colors.white,
                           )
                         : const Text(
-                            "Sing Up",
+                            "Sign Up",
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,

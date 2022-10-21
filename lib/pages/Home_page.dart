@@ -39,7 +39,7 @@ class Home extends StatelessWidget {
                             image: NetworkImage(userinfo.userProfile),
                             fit: BoxFit.fill),
                       ),
-                    ).p(40),
+                    ).p(30),
                   ),
                   userinfo.username.text.make(),
                 ],
@@ -127,7 +127,7 @@ class Home extends StatelessWidget {
                                           bottomRight: Radius.circular(25),
                                           topLeft: Radius.circular(25),
                                           bottomLeft: Radius.circular(25)),
-                                      color: Color.fromARGB(255, 154, 197, 230),
+                                      // color: Color.fromARGB(255, 154, 197, 230),
                                     ),
                                     width:
                                         MediaQuery.of(context).size.width / 2,
@@ -177,10 +177,10 @@ class Home extends StatelessWidget {
                                                 ),
                                           Text(
                                             nextuser,
-                                            style: TextStyle(fontSize: 30),
+                                            style: TextStyle(fontSize: 33),
                                           ).px32(),
                                         ]),
-                                  ).wFull(context).px16()));
+                                  ).wFull(context).px4()));
                           tilesList.add(userTitle);
                         }
                       }

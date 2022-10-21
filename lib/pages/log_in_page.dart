@@ -128,11 +128,11 @@ class _LoginPageState extends State<LoginPage> {
                           pass = "";
                           return "password can not be empty";
                         } else if (value != pass) {
-                          pass = "";
+                          // pass = "";
                           // print("pass :-" + pass);
                           return "Enter corect password";
                         }
-                        pass = "";
+                        // pass = "";
                         return null;
                       },
                     ),
@@ -181,7 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                     width: 100,
                     alignment: Alignment.center,
                     child: const Text(
-                      "Sing Up",
+                      "Sign Up",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
